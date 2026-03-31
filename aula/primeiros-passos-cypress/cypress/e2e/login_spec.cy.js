@@ -1,3 +1,5 @@
+import userData from '../fixtures/user/userData.json'
+
 describe('Orage HRM Testes', () => {
 
   const selectorList = {
@@ -7,14 +9,13 @@ describe('Orage HRM Testes', () => {
     sectionTitleTopBar: '.oxd-topbar-header-breadcrumb > .oxd-text',
     alertInputMessage: '.oxd-input-group__message',
     alertInvalidCredentials: '.oxd-alert-content',
-
-
   }
+
 
   it('Login com sucesso', () => {
     cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
-    cy.get(selectorList.username).type('Admin')
-    cy.get(selectorList.password).type('admin123')
+    cy.get(selectorList.username).type(userData.userSuccess.username)
+    cy.get(selectorList.password).type(userData.userSuccess.password)
     cy.get(selectorList.loginButton).click()
     cy.location('pathname').should('eq', '/web/index.php/dashboard/index')
     cy.get(selectorList.sectionTitleTopBar).contains('Dashboard')
@@ -28,8 +29,8 @@ describe('Orage HRM Testes', () => {
 
   it('Login com usuario incorrento', () => {
     cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
-    cy.get(selectorList.username).type('AdminTeste')
-    cy.get(selectorList.password).type('admin123')
+    cy.get(selectorList.username).type(userData.userNameFail.username)
+    cy.get(selectorList.password).type(userData.userNameFail.password)
     cy.get(selectorList.loginButton).click()
     cy.get(selectorList.alertInvalidCredentials).should('contain', 'Invalid credentials')
 
@@ -37,8 +38,8 @@ describe('Orage HRM Testes', () => {
 
   it('Login com senha incorreta', () => {
     cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login')
-    cy.get(selectorList.username).type('Admin')
-    cy.get(selectorList.password).type('admin123Teste')
+    cy.get(selectorList.username).type(userData.userNameFail.username)
+    cy.get(selectorList.password).type(userData.userNameFail.password)
     cy.get(selectorList.loginButton).click()
     cy.get(selectorList.alertInvalidCredentials).should('contain', 'Invalid credentials')
   })
