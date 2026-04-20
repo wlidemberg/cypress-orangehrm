@@ -17,7 +17,7 @@ class LoginPages {
      }
 
      loginWithUser(username, password){
-        cy.get(this.selectorList().usernameField).type(username)
+        cy.get(this.selectorList().usernameField).should('be.visible').type(username)
         cy.get(this.selectorList().passwordField).type(password)
         cy.get(this.selectorList().loginButton).click()
      }
