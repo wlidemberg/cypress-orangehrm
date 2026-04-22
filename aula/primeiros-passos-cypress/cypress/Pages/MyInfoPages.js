@@ -6,7 +6,7 @@ class MyInfoPages {
             lastName: '[name="lastName"]',
             genericField: '.oxd-input--active',
             formRow: '.oxd-form-row',
-            input: 'input',
+            input: '.oxd-input',
             select: '.oxd-select-text-input',
             radioOption: '.oxd-radio-input',
             selectOption: '.oxd-select-option',

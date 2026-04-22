@@ -21,5 +21,15 @@ class LoginPages {
         cy.get(this.selectorList().passwordField).type(password)
         cy.get(this.selectorList().loginButton).click()
      }
+
+     loginWithoutUsernameAndPassword(){
+         cy.get(this.selectorList().loginButton).click()
+         cy.get('.oxd-input-group').should('contain', 'Required')
+
+     }
+
+     checkAccessInvalid(){
+      cy.get(this.selectorList().alertInvalidCredentials).should('contain', 'Invalid credentials')
+     }
 }
 export default LoginPages;

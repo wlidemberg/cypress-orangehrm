@@ -11,15 +11,7 @@ const menu = new Menu()
 const myInfoPages = new MyInfoPages()
 describe('Orage HRM Testes', () => {
 
-  const selectorList = {
-   
-    //sectionTitleTopBar: '.oxd-topbar-header-breadcrumb > .oxd-text',
-    alertInputMessage: '.oxd-input-group__message',
-
-  }
-
-
-  it.only('Login com sucesso', () => {
+  it('Login com sucesso', () => {
 
     loginPage.accessLoginPage()
     loginPage.loginWithUser(userData.userSuccess.username, userData.userSuccess.password) 
@@ -34,25 +26,22 @@ describe('Orage HRM Testes', () => {
   })
 
   it('Login sem credenciais', () => {
-    cy.visit('/auth/login')
-    cy.get(selectorList.loginButton).click()
-    cy.get(selectorList.alertInputMessage).should('have.length', 2)
+    loginPage.accessLoginPage()
+    loginPage.loginWithoutUsernameAndPassword()
+
   })
 
   it('Login com usuario incorrento', () => {
-    cy.visit('/auth/login')
-    cy.get(selectorList.username).type(userData.userNameFail.username)
-    cy.get(selectorList.password).type(userData.userNameFail.password)
-    cy.get(selectorList.loginButton).click()
-    cy.get(selectorList.alertInvalidCredentials).should('contain', 'Invalid credentials')
+    loginPage.accessLoginPage()
+    loginPage.loginWithUser(userData.userNameFail.username, userData.userNameFail.password)
+    loginPage.checkAccessInvalid()
 
   })
 
   it('Login com senha incorreta', () => {
-    cy.visit('/auth/login')
-    cy.get(selectorList.username).type(userData.userNameFail.username)
-    cy.get(selectorList.password).type(userData.userNameFail.password)
-    cy.get(selectorList.loginButton).click()
-    cy.get(selectorList.alertInvalidCredentials).should('contain', 'Invalid credentials')
+    loginPage.accessLoginPage()
+    loginPage.loginWithUser(userData.userPassFail.username, userData.userPassFail.password)
+    loginPage.checkAccessInvalid()
+    // cy.get(selectorList.alertInvalidCredentials).should('contain', 'Invalid credentials')
   })
 })
